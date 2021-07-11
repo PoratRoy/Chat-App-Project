@@ -29,4 +29,6 @@ You can find detailed guides on how to do so [here](https://docs.mongodb.com/man
 ___
 
 ### Screenshots
+![login_screen](https://user-images.githubusercontent.com/82472117/125211065-57c96200-e2ac-11eb-941e-e86a693e8f95.PNG)
+![chat_screen](https://user-images.githubusercontent.com/82472117/125211076-66177e00-e2ac-11eb-9f0e-b28dc69b25d1.PNG)
 
