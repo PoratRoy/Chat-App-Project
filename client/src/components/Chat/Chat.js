@@ -52,7 +52,7 @@ const Chat = () => {
     const getAllUsers = async () => {
       try {
         const result = await Axios.get(
-          `https://localhost:5000/chat/api/private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+          `${process.env.REACT_APP_SERVER_URL}private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
         );
         setUsers(result.data);
       } catch (err) {
@@ -64,7 +64,7 @@ const Chat = () => {
     const getAllUserGroups = async () => {
       try {
         const result = await Axios.get(
-          `https://localhost:5000/chat/api/groups/${userData.user._id}`
+          `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
         );
         setGroups(result.data);
       } catch (err) {
@@ -79,7 +79,7 @@ const Chat = () => {
 
     const addNewUser = async (userId) => {
       const result = await Axios.get(
-        `https://localhost:5000/chat/api/private/${userId}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+        `${process.env.REACT_APP_SERVER_URL}private/${userId}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
       );
       setUsers((prev) => [...prev, result.data]);
     };
@@ -89,7 +89,7 @@ const Chat = () => {
   useEffect(() => {
     const getSender = async () => {
       const result = await Axios.get(
-        `https://localhost:5000/chat/api/private/${arrivalMessage.sender}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+        `${process.env.REACT_APP_SERVER_URL}private/${arrivalMessage.sender}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
       );
       return result.data;
     };
@@ -107,7 +107,7 @@ const Chat = () => {
     const getMessages = async () => {
       try {
         const result = await Axios.get(
-          `https://localhost:5000/chat/api/messages/${currentChat?._id}`
+          `${process.env.REACT_APP_SERVER_URL}messages/${currentChat?._id}`
         );
         setMessages(result.data);
       } catch (err) {
@@ -146,7 +146,7 @@ const Chat = () => {
 
     try {
       const result = await Axios.post(
-        "https://localhost:5000/chat/api/messages",
+        `${process.env.REACT_APP_SERVER_URL}messages`,
         newMessage
       );
       setMessages([...messages, result.data]);
@@ -165,13 +165,13 @@ const Chat = () => {
 
     try {
       const result = await Axios.post(
-        "https://localhost:5000/chat/api/groups",
+        `${process.env.REACT_APP_SERVER_URL}groups`,
         newGroup
       );
       setCurrentChat(result.data);
 
       const res = await Axios.get(
-        `https://localhost:5000/chat/api/groups/${userData.user._id}`
+        `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
       );
       setGroups(res.data);
       socket.emit('addNewGroup',id)
@@ -187,7 +187,7 @@ const Chat = () => {
       if(!value || value === ''){
         try {
           const result = await Axios.get(
-            `https://localhost:5000/chat/api/private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+            `${process.env.REACT_APP_SERVER_URL}private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
           );
           setUsers(result.data);
         } catch (err) {

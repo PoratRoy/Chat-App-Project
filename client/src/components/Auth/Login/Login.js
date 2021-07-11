@@ -14,19 +14,18 @@ const Login = () => {
   const {socket} = useContext(SocketContext);
 
   const history = useHistory();
-
   const handelSubmit = async (event) => {
     event.preventDefault();
-
+    
     const config = {
       header: {
         'Content-Type':'appliction/json'
       }
     }
 
-    try {
+  try {
       const loginUser = await Axios.post(
-        "https://localhost:5000/chat/api/auth/login",
+        `${process.env.REACT_APP_SERVER_URL}auth/login`,
         { userName, password }, config
       );
 
@@ -71,7 +70,7 @@ const Login = () => {
           <input
             className="text login-group-input"
             placeholder="Enter Password.."
-            type="text"
+            type="password"
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);

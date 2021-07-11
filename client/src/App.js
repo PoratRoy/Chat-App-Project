@@ -15,18 +15,18 @@ const App = () => {
     user: undefined,
   });
 
-  useEffect(() => {
+useEffect(() => {
 
     let token = localStorage.getItem("auth-Token");
     if (!token) {
-      localStorage.setItem("auto-Token", "");
+      localStorage.setItem("auth-Token", "");
       token = "";
     }
 
     const fetchPrivateData = async () => {
       try {
         const resToken = await Axios.post(
-          "https://localhost:5000/chat/api/auth/tokenIsValid",
+          `${process.env.REACT_APP_SERVER_URL}auth/tokenIsValid`,
           null,
           { headers: {"x-auth-Token": token} }
           );
@@ -38,7 +38,7 @@ const App = () => {
           });
         }
       } catch (error) {
-        localStorage.removeItem("auto-Token");
+        localStorage.removeItem("auth-Token");
       }
     };
     fetchPrivateData();

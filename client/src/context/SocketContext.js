@@ -1,6 +1,5 @@
 import io from 'socket.io-client';
 import { createContext } from 'react';
-const CONNECTION_PORT = "https://localhost:5000/"
 
-export const socket = io(CONNECTION_PORT);
+export const socket = io(process.env.REACT_APP_SERVER_CONTEXT_URL);
 export const SocketContext = createContext();

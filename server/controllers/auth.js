@@ -60,10 +60,10 @@ exports.tokenIsValid = async (req, res, next) => {
   try {
     const token = req.header("x-auth-Token"); 
     if (!token) return res.json(null);
-
+    
     const verified = jwt.verify(token, process.env.CHAT_JWT_KEY); 
     if (!verified) return res.json(null);
-
+    
     const user = await User.findById(verified._id).select("-password");
     if (!user) return res.json(null);
 

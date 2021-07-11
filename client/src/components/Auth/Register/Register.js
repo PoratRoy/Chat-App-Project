@@ -30,12 +30,12 @@ const Register = () => {
     try {
       const newUser = { name, userName, password };
       await Axios.post(
-        "https://localhost:5000/chat/api/auth/register",
+        `${process.env.REACT_APP_SERVER_URL}auth/register`,
         newUser, config
         );
         
         const loginUser = await Axios.post(
-          "https://localhost:5000/chat/api/auth/login",
+          `${process.env.REACT_APP_SERVER_URL}auth/login`,
           {
             userName,
             password,
@@ -90,7 +90,7 @@ const Register = () => {
           <input
             className="text register-input"
             placeholder="Enter Your Password.."
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
