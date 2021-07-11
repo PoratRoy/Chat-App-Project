@@ -1,0 +1,50 @@
+
+
+.chat-continer{
+    position:  relative;
+}
+
+.chat-nav{
+    position: fixed;
+    z-index: 2;
+    height: 100vh;
+    width: 20%;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:var(--third-backgroud-color);
+    border-left: 1px solid rgb(66, 66, 87);
+}
+
+
+.chat-header{
+    position: fixed;
+    z-index: 1;
+    height: 10vh;
+    width: 80%;
+    background-color:var(--second-backgroud-color);
+    box-shadow: var(--primary-box-shadow);
+}
+
+.chat-group{
+    position: relative;
+    z-index: 0;
+    height: 90vh;
+    width: 80%;
+}
+
+.no-chat{
+    position: relative;
+    text-align: center;
+    top: 25vh;
+    color: var(--second-text-color);
+    font-size: var(--text-font-size-xxl);
+    opacity: 0.4;
+}
+
+
+
+    
+    

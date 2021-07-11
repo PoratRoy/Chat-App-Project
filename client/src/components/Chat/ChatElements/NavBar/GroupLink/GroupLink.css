@@ -1,0 +1,23 @@
+
+
+.group-link-btn{
+    width: 15vw;
+    height: 7vh;
+    border:none;
+    border-bottom: 2px solid rgba(0, 0 , 0 , .2);
+    color: var(--primary-text-color);
+    background-color: transparent;
+    font-size:var(--text-font-size-l);
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.group-link-btn:hover{
+    cursor: pointer;
+    background-color: var(--hover-third-backgrond-color);
+    border-radius: 10px 10px 0 0;
+}
+.group-link-btn:active{
+    cursor: pointer;
+    background-color: var(--active-third-backgrond-color);
+    border-radius: 10px 10px 0 0;
+}

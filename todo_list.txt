@@ -1,0 +1,30 @@
+
+must to have
+
+V- rgister not working                                   
+V- create new chat with new client not working
+V- private routs not working
+V- search
+V- css errors in the login register
+V- clear inputs after use or after errors
+- handle errors. without console errors
+
+nice to have
+
+V- when start new chat. add the continue chat text
+- onlin icon on the users
+- responsive css
+- everything ok when refresh the page chat
+- fix bags in the sincron chat between clients. get to messages when one close the chat
+- css list of group links
+- css of text input not looking good
+- auto complition on search input
+- optimize the search
+- refactor the react code 
+
+- user image
+- type animtion
+- upload images to chat
+- emojis
+- groups
+
