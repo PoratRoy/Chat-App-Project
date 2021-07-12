@@ -45,7 +45,7 @@ const Chat = () => {
         createdAt: Date.now(),
       });
     });
-  }, [socket]);
+  }, [socket, history, setUserData, userData.user]);
 
   //alert about socket new user & get all socket users
   useEffect(() => {

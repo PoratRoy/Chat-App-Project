@@ -20,7 +20,6 @@ const Register = () => {
   const handelSubmit = async (event) => {
     event.preventDefault();
 
-    console.log('enter');
     const config = {
       header: {
         'Content-Type':'appliction/json'
