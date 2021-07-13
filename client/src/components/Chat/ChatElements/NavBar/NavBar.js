@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GroupLink from "./GroupLink/GroupLink";
 import UserContext from "../../../../context/UserContext";
+import { Row, Search } from "../../../UIKit";
 import "./NavBar.css";
 
-const NavBar = ({ setCurrentChat, addNewGroup, handleSearch, users, groups }) => {
-  
+const NavBar = ({
+  setCurrentChat,
+  addNewGroup,
+  handleSearch,
+  users,
+  groups,
+}) => {
   const { userData, setUserData } = useContext(UserContext);
-  const history = useHistory();
 
   const linkGroups = [];
   const usersAlreadyWithGroup = [];
@@ -55,37 +60,26 @@ const NavBar = ({ setCurrentChat, addNewGroup, handleSearch, users, groups }) =>
       user: undefined,
     });
     localStorage.setItem("auth-Token", "");
-    history.push("/");
   };
-
 
   return (
     <>
       <div className="navbar-continer">
-        <header className="navbar-header">
-          <div className="title">CHATROOM</div>
-          <div className="navbar-title-s">Created by Roy Porat</div>
-        </header>
+        <Row>
+          <header className="navbar-header">
+            <div className="title">CHATROOM</div>
+            <div className="navbar-title-s">Created by Roy Porat</div>
+          </header>
 
-        <div className="navbar-search">
-          <input
-          className="text navbar-search-text"
-            placeholder="Search"
-            onChange={handleSearch}
-          />
-          <button className="navbar-search-icon">
-            <i className="fas fa-search"></i>
-          </button>
-        </div>
+          <Search handleSearch={handleSearch}/>
 
-        <ul className="navbar-groups">{linkGroups}</ul>
+          <ul className="navbar-groups">{linkGroups}</ul>
 
-        <div className="navbar-logout">
-          <button className="navbar-logout-btn" onClick={handleLogout}>
+          <Link to="/" className="link navbar-logout-link" onClick={handleLogout}>
             Log out
             <i className="navbar-logout-icon fas fa-sign-out-alt"></i>
-          </button>
-        </div>
+          </Link>
+        </Row>
       </div>
     </>
   );

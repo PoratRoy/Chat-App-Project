@@ -1,42 +1,12 @@
 
-.login-continer{
 
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    height: 55vh;
-    width:22vw;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    border:3px solid rgb(66, 66, 87);
-    box-shadow: var(--second-box-shadow);
-    background-color: var(--third-backgroud-color);
-}
-
-.login-items{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.login-group-input,.login-sign-in{
+.form-input-items > *{
     position: relative;
     height: 4vh;
     width: 15vw;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 }
 
-
-.login-btn{
-    position: relative;
-    margin-top: 10%;
-    margin-bottom: 5%;
-    height: 3em;
-    width:5em;
-}
 
 
 

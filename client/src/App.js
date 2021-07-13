@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import UserContext from "./context/UserContext";
-import { SocketContext, socket } from "./context/SocketContext";
+import UserContext from "context/UserContext";
+import { SocketContext, socket } from "context/SocketContext";
 import Axios from "axios";
-import PrivateRoute from "./components/routing/PrivateRouting";
+import PrivateRoute from "components/routing/PrivateRouting";
 
-import Login from "./components/Auth/Login/Login";
-import Register from "./components/Auth/Register/Register";
-import Chat from "./components/Chat/Chat";
+import Login from "components/Auth/Login/Login";
+import Register from "components/Auth/Register/Register";
+import Chat from "components/Chat/Chat";
 
 const App = () => {
   const [userData, setUserData] = useState({

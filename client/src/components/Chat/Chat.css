@@ -7,15 +7,10 @@
 .chat-nav{
     position: fixed;
     z-index: 2;
-    height: 100vh;
-    width: 20%;
     top: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color:var(--third-backgroud-color);
-    border-left: 1px solid rgb(66, 66, 87);
+    height: 100vh;
+    width: 20%;
 }
 
 
@@ -24,8 +19,6 @@
     z-index: 1;
     height: 10vh;
     width: 80%;
-    background-color:var(--second-backgroud-color);
-    box-shadow: var(--primary-box-shadow);
 }
 
 .chat-group{

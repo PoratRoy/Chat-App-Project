@@ -1,11 +1,10 @@
 
 .header-continer{
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     width: 100%;
+    background-color:var(--second-backgroud-color);
+    box-shadow: var(--primary-box-shadow);
 }
 
 

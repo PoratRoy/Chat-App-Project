@@ -1,0 +1,22 @@
+.Line{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.Line[justify="center"]{
+    justify-content: center;
+}
+
+.Line[justify="evenly"]{
+    justify-content:space-evenly;
+}
+
+.Line[justify="between"]{
+    justify-content:space-between;
+}
+
+.Line[justify="around"]{
+    justify-content:space-around;
+}

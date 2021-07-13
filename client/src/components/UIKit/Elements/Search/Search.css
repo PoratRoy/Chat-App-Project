@@ -1,0 +1,14 @@
+.search{
+    position:relative;
+    margin-top: 10%;
+    height: 4vh;
+    width: 15vw;
+}
+
+.search-icon{
+    position: absolute;
+    top: 40%;
+    right: 1px;
+    color: var(--second-text-color);
+    font-size: 15px;
+}

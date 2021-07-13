@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import { SocketContext } from "../../../context/SocketContext";
 import UseContext from "../../../context/UserContext";
+import { Form, Card, TxtBox } from "../../UIKit";
 import "./Login.css";
 
 const Login = () => {
@@ -11,22 +12,23 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const { setUserData } = useContext(UseContext);
-  const {socket} = useContext(SocketContext);
+  const { socket } = useContext(SocketContext);
 
   const history = useHistory();
   const handelSubmit = async (event) => {
     event.preventDefault();
-    
+
     const config = {
       header: {
-        'Content-Type':'appliction/json'
-      }
-    }
+        "Content-Type": "appliction/json",
+      },
+    };
 
-  try {
+    try {
       const loginUser = await Axios.post(
         `${process.env.REACT_APP_SERVER_URL}auth/login`,
-        { userName, password }, config
+        { userName, password },
+        config
       );
 
       setUserData({
@@ -38,51 +40,42 @@ const Login = () => {
       socket.emit("addUserToArray", loginUser.data.user._id);
 
       history.push("/chat");
-
     } catch (err) {
       setError(err.response.data.error);
-      setUserName('');
-      setPassword('');
-      setTimeout(()=> {
-        setError('');
-      }, 7500)
+      setUserName("");
+      setPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 7500);
     }
   };
 
   return (
-    <form onSubmit={handelSubmit}>
-      <div className="login-continer">
-        <div className="login-items">
-          <h1 className="title">Login</h1>
-
-          {error && <span className="error">{error}</span>}
-
-          <input
-            className="text login-group-input"
+    <Card>
+      <Form
+        handelSubmit={handelSubmit}
+        title="Login"
+        error={error}
+        btn="Login"
+        link="/register"
+        linkTxt="Don't have an account?"
+      >
+        <section className="form-input-items">
+          <TxtBox
             placeholder="Enter User Name.."
-            type="text"
             value={userName}
-            onChange={(event) => {
-              setUserName(event.target.value);
-            }}
+            setValue={setUserName}
           />
 
-          <input
-            className="text login-group-input"
+          <TxtBox
             placeholder="Enter Password.."
             type="password"
             value={password}
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
+            setValue={setPassword}
           />
-
-          <input className="btn login-btn" type="submit" value="Login" />
-
-          <Link className="link" to="/register">Don't have an account?</Link>
-        </div>
-      </div>
-    </form>
+        </section>
+      </Form>
+    </Card>
   );
 };
 

@@ -3,7 +3,7 @@ import Axios from "axios";
 import NavBar from "./ChatElements/NavBar/NavBar";
 import Header from "./ChatElements/Header/Header";
 import Messages from "./ChatElements/Messages/Messages";
-import Input from "./ChatElements/Input/Input";
+import InputMessage from "./ChatElements/InputMessage/InputMessage";
 import UserContext from "../../context/UserContext";
 import { SocketContext } from "../../context/SocketContext";
 import { useHistory } from "react-router-dom";
@@ -18,7 +18,7 @@ const Chat = () => {
   const [groups, setGroups] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const { userData,setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const { socket } = useContext(SocketContext);
   const history = useHistory();
   const scrollRef = useRef();
@@ -28,8 +28,7 @@ const Chat = () => {
 
   //socket connection & get new messages
   useEffect(() => {
-    
-    if(!userData.user){
+    if (!userData.user) {
       setUserData({
         token: undefined,
         user: undefined,
@@ -52,7 +51,8 @@ const Chat = () => {
     const getAllUsers = async () => {
       try {
         const result = await Axios.get(
-          `${process.env.REACT_APP_SERVER_URL}private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+          `${process.env.REACT_APP_SERVER_URL}private/all`,
+          { headers: { Authorization: localStorage.getItem("auth-Token") } }
         );
         setUsers(result.data);
       } catch (err) {
@@ -73,13 +73,18 @@ const Chat = () => {
     };
     getAllUserGroups();
 
-    socket.on('updateGroups', () => { getAllUserGroups() })
+    socket.on("updateGroups", () => {
+      getAllUserGroups();
+    });
 
-    socket.on("getNewAddedUser", (userId) => { userId && addNewUser(userId) });
+    socket.on("getNewAddedUser", (userId) => {
+      userId && addNewUser(userId);
+    });
 
     const addNewUser = async (userId) => {
       const result = await Axios.get(
-        `${process.env.REACT_APP_SERVER_URL}private/${userId}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+        `${process.env.REACT_APP_SERVER_URL}private/${userId}`,
+        { headers: { Authorization: localStorage.getItem("auth-Token") } }
       );
       setUsers((prev) => [...prev, result.data]);
     };
@@ -89,7 +94,8 @@ const Chat = () => {
   useEffect(() => {
     const getSender = async () => {
       const result = await Axios.get(
-        `${process.env.REACT_APP_SERVER_URL}private/${arrivalMessage.sender}`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
+        `${process.env.REACT_APP_SERVER_URL}private/${arrivalMessage.sender}`,
+        { headers: { Authorization: localStorage.getItem("auth-Token") } }
       );
       return result.data;
     };
@@ -174,81 +180,76 @@ const Chat = () => {
         `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
       );
       setGroups(res.data);
-      socket.emit('addNewGroup',id)
-
+      socket.emit("addNewGroup", id);
     } catch (err) {
       console.log(err);
     }
   };
 
-    //search
-    const handleSearch = async (e) => {
-      const value = e.target.value.toLocaleLowerCase();
-      if(!value || value === ''){
-        try {
-          const result = await Axios.get(
-            `${process.env.REACT_APP_SERVER_URL}private/all`,{headers: {Authorization: localStorage.getItem('auth-Token')}} 
-          );
-          setUsers(result.data);
-        } catch (err) {
-          console.log(err);
-        }
-      }else{
-        const filteredUsers = users.filter(u => u.name.toLowerCase().includes(value));
-        setUsers(filteredUsers.filter(u => userData.user?._id !== u._id));
+  //search
+  const handleSearch = async (e) => {
+    const value = e.target.value.toLocaleLowerCase();
+    if (!value || value === "") {
+      try {
+        const result = await Axios.get(
+          `${process.env.REACT_APP_SERVER_URL}private/all`,
+          { headers: { Authorization: localStorage.getItem("auth-Token") } }
+        );
+        setUsers(result.data);
+      } catch (err) {
+        console.log(err);
       }
-    };
+    } else {
+      const filteredUsers = users.filter((u) =>
+        u.name.toLowerCase().includes(value)
+      );
+      setUsers(filteredUsers.filter((u) => userData.user?._id !== u._id));
+    }
+  };
   //#endregion
 
   return (
     <>
-        <div className="chat-continer">
-          <nav className="chat-nav">
-            <NavBar
-              setCurrentChat={setCurrentChat}
-              addNewGroup={addNewGroup}
-              handleSearch={handleSearch}
-              users={users}
-              groups={groups}
-            />
-          </nav>
+      <div className="chat-continer">
+        <nav className="chat-nav">
+          <NavBar
+            setCurrentChat={setCurrentChat}
+            addNewGroup={addNewGroup}
+            handleSearch={handleSearch}
+            users={users}
+            groups={groups}
+          />
+        </nav>
 
-          {currentChat ? (
+        {currentChat ? (
+          <>
+            <header className="chat-header">
+              <Header
+                currentChat={currentChat}
+                setCurrentChat={setCurrentChat}
+              />
+            </header>
 
-            <div className="chat">
-              <header className="chat-header">
-                <Header
-                  currentChat={currentChat}
-                  setCurrentChat={setCurrentChat}
-                />
-              </header>
+            <section className="chat-group">
+              <Messages
+                messages={messages}
+                user={userData.user}
+                scrollRef={scrollRef}
+              />
 
-              <section className="chat-group">
-                <div className="chat-items">
-                  <Messages
-                    messages={messages}
-                    user={userData.user}
-                    scrollRef={scrollRef}
-                  />
-
-                  <Input
-                    message={message}
-                    setMessage={setMessage}
-                    sendMessage={sendMessage}
-                  />
-                </div>
-              </section>
-            </div>
-          ) : (
-            <div className="chat">
-              <section className="chat-group">
-                <div className="chat-items">
-                  <div className="no-chat">No chat selected</div>
-                </div>
-              </section>
-            </div>
-          )}
-        </div>
+              <InputMessage
+                message={message}
+                setMessage={setMessage}
+                sendMessage={sendMessage}
+              />
+            </section>
+          </>
+        ) : (
+          <section className="chat-group">
+            <div className="no-chat">No chat selected</div>
+          </section>
+        )}
+      </div>
     </>
   );
 };

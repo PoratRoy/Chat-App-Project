@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import UseContext from "../../../context/UserContext";
 import { SocketContext } from "../../../context/SocketContext";
+import { Form, Card, TxtBox } from "../../UIKit";
 import "./Register.css";
 
 const Register = () => {
@@ -12,94 +13,90 @@ const Register = () => {
   const [error, setError] = useState("");
 
   const { setUserData } = useContext(UseContext);
-  const {socket} = useContext(SocketContext);
+  const { socket } = useContext(SocketContext);
 
   const history = useHistory();
-
 
   const handelSubmit = async (event) => {
     event.preventDefault();
 
     const config = {
       header: {
-        'Content-Type':'appliction/json'
-      }
-    }
+        "Content-Type": "appliction/json",
+      },
+    };
 
     try {
       const newUser = { name, userName, password };
       await Axios.post(
         `${process.env.REACT_APP_SERVER_URL}auth/register`,
-        newUser, config
-        );
-        
-        const loginUser = await Axios.post(
-          `${process.env.REACT_APP_SERVER_URL}auth/login`,
-          {
-            userName,
-            password,
-          }, config
-          );
+        newUser,
+        config
+      );
 
-          setUserData({
-            token: loginUser.data.token,
-            user: loginUser.data.user,
-          });
+      const loginUser = await Axios.post(
+        `${process.env.REACT_APP_SERVER_URL}auth/login`,
+        {
+          userName,
+          password,
+        },
+        config
+      );
+
+      setUserData({
+        token: loginUser.data.token,
+        user: loginUser.data.user,
+      });
       localStorage.setItem("auth-Token", loginUser.data.token);
 
       socket.emit("addNewUser", loginUser.data.user._id);
 
       history.push("/chat");
-
     } catch (err) {
       setError(err.response.data.error);
-      setName('');
-      setUserName('');
-      setPassword('');
-      setTimeout(()=> {
-        setError('');
-      }, 7500)
+      setName("");
+      setUserName("");
+      setPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 7500);
     }
   };
 
   return (
-    <form onSubmit={handelSubmit}>
-      <div className="register-continer">
-        <div className="register-items">
-          <h1 className="title">Register</h1>
-
-          {error && <span className="error">{error}</span>}
-
-          <input
+    <Card>
+      <Form
+        handelSubmit={handelSubmit}
+        title="Register"
+        error={error}
+        btn="Register"
+        link="/"
+        linkTxt="Already have an account?"
+      >
+        <section className="form-input-items">
+          <TxtBox
             className="text register-input"
             placeholder="Enter Your Name.."
-            type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            setValue={setName}
           />
 
-          <input
-            className="text register-input"
+          <TxtBox
             placeholder="Enter Your User Name.."
-            type="text"
             value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            setValue={setUserName}
           />
 
-          <input
-            className="text register-input"
+          <TxtBox
             placeholder="Enter Your Password.."
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            setValue={setPassword}
           />
+        </section>
 
-          <input className="btn register-btn" type="submit" value="Register" />
-
-          <Link className="link" to="/">Already have an account?</Link>
-        </div>
-      </div>
-    </form>
+      </Form>
+    </Card>
   );
 };
 

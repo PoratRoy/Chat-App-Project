@@ -1,10 +1,9 @@
 
 .navbar-continer{
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 100%;
+    background-color:var(--third-backgroud-color);
+    border-left: 1px solid rgb(66, 66, 87);
 }
 
 .navbar-header{
@@ -17,55 +16,11 @@
     flex-direction: column;
 }
 
-.navbar-logout{
-    position: absolute;
-    bottom: 4%;
-    right: 1%;
-}
-
-.navbar-logout-btn{
-    font-size: var(--text-font-size-m);
-    font-weight: 900;
-    color: var(--second-text-color);
-    background-color: transparent;
-    border:none;
-}
-.navbar-logout-btn:hover{
-    cursor: pointer;
-    color: var(--hover-second-text-color);
-}
-.navbar-logout-btn:active{
-    cursor: pointer;
-    color: var(--active-second-text-color);
-}
-.navbar-logout-icon{
-    margin: 5px;
-}
 
 .navbar-title-s{
     font-weight: 500;
     font-size: var(--text-font-size-s);
     margin-top: 2%; 
-}
-
-.navbar-search{
-    position:relative;
-    margin-top: 10%;
-    height: 4vh;
-    width: 15vw;
-}
-
-.navbar-search-text{
-    width: 100%;
-}
-
-.navbar-search-icon{
-    position: absolute;
-    top: 5px;
-    right: 0;
-    background-color: transparent;
-    border: none;
-    color: var(--second-text-color);
 }
 
 
@@ -96,4 +51,18 @@
     right: 10px;
     color: var(--second-text-color);
     font-size: var(--text-font-size-xs);
+}
+
+
+.navbar-logout-link{
+    position: absolute;
+    bottom: 4%;
+    right: 3%;
+    font-weight: 900;
+    color: var(--second-text-color);
+    font-size: var(--text-font-size-m) !important;
+    text-decoration: none;
+}
+.navbar-logout-icon{
+    margin: 5px;
 }
