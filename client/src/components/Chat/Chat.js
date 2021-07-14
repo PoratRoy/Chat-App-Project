@@ -6,6 +6,7 @@ import Header from "./ChatElements/Header/Header";
 import Messages from "./ChatElements/Messages/Messages";
 import InputMessage from "./ChatElements/InputMessage/InputMessage";
 import UserContext from "../../context/UserContext";
+import CurrentChatContext from "../../context/CurrentChatContext";
 import { SocketContext } from "../../context/SocketContext";
 import "./Chat.css";
 
@@ -43,8 +44,6 @@ const Chat = () => {
     });
   }, [socket, history, setUserData, userData.user]);
 
-
-  
   useEffect(() => {
     //get the user that send the new message
     const getSender = async () => {
@@ -59,13 +58,14 @@ const Chat = () => {
     newArrivalMessage &&
       getSender().then((res) => {
         if (currentChat?.members.map((m) => m._id === res._id)) {
-          newArrivalMessage && setMessages((prev) => [...prev, newArrivalMessage]);
+          newArrivalMessage &&
+            setMessages((prev) => [...prev, newArrivalMessage]);
         }
       });
   }, [newArrivalMessage, currentChat]);
 
-  
   useEffect(() => {
+    //get all the messages of the current chat
     const getMessages = async () => {
       try {
         const result = await Axios.get(
@@ -79,50 +79,37 @@ const Chat = () => {
     getMessages();
   }, [currentChat]);
 
-  
   //#endregion
-
 
   return (
     <>
-      <div className="chat-continer">
-        <nav className="chat-nav">
-          <NavBar
-            setCurrentChat={setCurrentChat}
-          />
-        </nav>
+      <CurrentChatContext.Provider value={{ currentChat, setCurrentChat }}>
+        <div className="chat-continer">
+          <nav className="chat-nav">
+            <NavBar />
+          </nav>
 
-        {currentChat ? (
-          <>
-            <header className="chat-header">
-              <Header
-                currentChat={currentChat}
-                setCurrentChat={setCurrentChat}
-              />
-            </header>
+          {currentChat ? (
+            <>
+              <header className="chat-header">
+                <Header />
+              </header>
 
+              <section className="chat-group">
+                <Messages messages={messages} user={userData.user} />
+
+                <InputMessage messages={messages} setMessages={setMessages} />
+              </section>
+            </>
+          ) : (
             <section className="chat-group">
-              <Messages
-                messages={messages}
-                user={userData.user}
-              />
-
-              <InputMessage
-                currentChat={currentChat}
-                messages={messages}
-                setMessages={setMessages}
-              />
+              <div className="no-chat">No chat selected</div>
             </section>
-          </>
-        ) : (
-          <section className="chat-group">
-            <div className="no-chat">No chat selected</div>
-          </section>
-        )}
-      </div>
+          )}
+        </div>
+      </CurrentChatContext.Provider>
     </>
   );
 };
 
 export default Chat;
-

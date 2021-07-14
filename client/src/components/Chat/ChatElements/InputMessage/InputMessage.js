@@ -1,14 +1,16 @@
 import React, {useState, useContext} from "react";
 import Axios from "axios";
 import UserContext from "../../../../context/UserContext";
+import CurrentChatContext from "../../../../context/CurrentChatContext";
 import { SocketContext } from "../../../../context/SocketContext";
 import { Line } from "../../../UIKit";
 import "./InputMessage.css";
-
-const InputMessage = ({ currentChat, messages, setMessages }) => {
+ 
+const InputMessage = ({ messages, setMessages }) => {
 
   const [message, setMessage] = useState("");
 
+  const { currentChat } = useContext(CurrentChatContext);
   const { userData } = useContext(UserContext);
   const { socket } = useContext(SocketContext);
 

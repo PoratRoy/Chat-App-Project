@@ -1,0 +1,12 @@
+.navbar-logout-link{
+    position: absolute;
+    bottom: 4%;
+    right: 3%;
+    font-weight: 900;
+    color: var(--second-text-color);
+    font-size: var(--text-font-size-m) !important;
+    text-decoration: none;
+}
+.navbar-logout-icon{
+    margin: 5px;
+}

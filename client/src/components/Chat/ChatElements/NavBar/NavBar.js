@@ -1,21 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
 import GroupLink from "./GroupLink/GroupLink";
 import UserContext from "../../../../context/UserContext";
+import CurrentChatContext from "../../../../context/CurrentChatContext";
 import { SocketContext } from "../../../../context/SocketContext";
+import LogoutBtn from './LogoutBtn/LogoutBtn';
 import { Row, Search } from "../../../UIKit";
 import "./NavBar.css";
 
-const NavBar = ({
-  setCurrentChat
-}) => {
+const NavBar = () => {
 
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
 
-  const { socket } = useContext(SocketContext);
+  const { setCurrentChat } = useContext(CurrentChatContext);
   const { userData, setUserData } = useContext(UserContext);
+  const { socket } = useContext(SocketContext);
 
   
   useEffect(() => {
@@ -43,6 +43,7 @@ const NavBar = ({
       }
     };
     getAllUserGroups();
+
 
     socket.on("updateGroups", () => {
       getAllUserGroups();
@@ -87,25 +88,7 @@ const NavBar = ({
   };
 
 
-  const handleSearch = async (e) => {
-    const value = e.target.value.toLocaleLowerCase();
-    if (!value || value === "") {
-      try {
-        const result = await Axios.get(
-          `${process.env.REACT_APP_SERVER_URL}private/all`,
-          { headers: { Authorization: localStorage.getItem("auth-Token") } }
-        );
-        setUsers(result.data);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      const filteredUsers = users.filter((u) =>
-        u.name.toLowerCase().includes(value)
-      );
-      setUsers(filteredUsers.filter((u) => userData.user?._id !== u._id));
-    }
-  };
+
 
 //-----//
 
@@ -150,13 +133,7 @@ const NavBar = ({
     );
   });
 
-  const handleLogout = () => {
-    setUserData({
-      token: undefined,
-      user: undefined,
-    });
-    localStorage.setItem("auth-Token", "");
-  };
+
 
   return (
     <>
@@ -167,14 +144,12 @@ const NavBar = ({
             <div className="navbar-title-s">Created by Roy Porat</div>
           </header>
 
-          <Search handleSearch={handleSearch}/>
+          <Search users={users} setUsers={setUsers}/>
 
           <ul className="navbar-groups">{linkGroups}</ul>
 
-          <Link to="/" className="link navbar-logout-link" onClick={handleLogout}>
-            Log out
-            <i className="navbar-logout-icon fas fa-sign-out-alt"></i>
-          </Link>
+          <LogoutBtn setUserData={setUserData}/>
+
         </Row>
       </div>
     </>

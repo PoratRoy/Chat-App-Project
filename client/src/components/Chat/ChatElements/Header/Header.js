@@ -1,10 +1,12 @@
 import React, {useContext} from "react";
 import UserContext from "../../../../context/UserContext";
+import CurrentChatContext from "../../../../context/CurrentChatContext";
 import {Line} from '../../../UIKit'
 import "./Header.css";
 
-const Header = ({ currentChat, setCurrentChat}) => {
+const Header = () => {
     
+  const { currentChat, setCurrentChat } = useContext(CurrentChatContext);
   const { userData } = useContext(UserContext);
 
   const otherUser = currentChat?.members.filter(u => u.name !== userData.user.name);
