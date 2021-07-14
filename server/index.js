@@ -37,16 +37,16 @@ io.on('connect', (socket)=>{
     })
 
     //add new register user to users socket array
-    socket.on('addNewUser', userId =>{
+    socket.on('addNewRegisterUser', userId =>{
         addUser(userId, socket.id);
-        io.emit('getNewAddedUser', userId);
+        io.emit('getNewRegisterUser', userId);
     })
 
     //send and get message
-    socket.on('newMessageFromClient',({senderId, receiver,text}) =>{
+    socket.on('newArrivalMessageToServer',({senderId, receiver,text}) =>{
         const receivedUser = getUser(receiver._id);
         if(receivedUser){
-            io.to(receivedUser.socketId).emit('messageFromServer',{
+            io.to(receivedUser.socketId).emit('newArrivalMessageToClient',{
                 senderId,
                 text
             })

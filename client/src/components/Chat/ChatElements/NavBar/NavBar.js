@@ -1,18 +1,114 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import Axios from "axios";
 import { Link } from "react-router-dom";
 import GroupLink from "./GroupLink/GroupLink";
 import UserContext from "../../../../context/UserContext";
+import { SocketContext } from "../../../../context/SocketContext";
 import { Row, Search } from "../../../UIKit";
 import "./NavBar.css";
 
 const NavBar = ({
-  setCurrentChat,
-  addNewGroup,
-  handleSearch,
-  users,
-  groups,
+  setCurrentChat
 }) => {
+
+  const [users, setUsers] = useState([]);
+  const [groups, setGroups] = useState([]);
+
+  const { socket } = useContext(SocketContext);
   const { userData, setUserData } = useContext(UserContext);
+
+  
+  useEffect(() => {
+    const getAllUsers = async () => {
+      try {
+        const result = await Axios.get(
+          `${process.env.REACT_APP_SERVER_URL}private/all`,
+          { headers: { Authorization: localStorage.getItem("auth-Token") } }
+        );
+        setUsers(result.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllUsers();
+
+    const getAllUserGroups = async () => {
+      try {
+        const result = await Axios.get(
+          `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
+        );
+        setGroups(result.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllUserGroups();
+
+    socket.on("updateGroups", () => {
+      getAllUserGroups();
+    });
+
+    socket.on("getNewRegisterUser", (userId) => {
+      userId && addNewUser(userId);
+    });
+
+    const addNewUser = async (userId) => {
+      const result = await Axios.get(
+        `${process.env.REACT_APP_SERVER_URL}private/${userId}`,
+        { headers: { Authorization: localStorage.getItem("auth-Token") } }
+      );
+      setUsers((prev) => [...prev, result.data]);
+    };
+  }, [userData.user, socket]);
+
+
+  const addNewGroup = async (id) => {
+    const newGroup = {
+      senderId: userData.user._id,
+      receiverId: id,
+      createdAt: Date.now(),
+    };
+
+    try {
+      const result = await Axios.post(
+        `${process.env.REACT_APP_SERVER_URL}groups`,
+        newGroup
+      );
+      setCurrentChat(result.data);
+
+      const res = await Axios.get(
+        `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
+      );
+      setGroups(res.data);
+      socket.emit("addNewGroup", id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  const handleSearch = async (e) => {
+    const value = e.target.value.toLocaleLowerCase();
+    if (!value || value === "") {
+      try {
+        const result = await Axios.get(
+          `${process.env.REACT_APP_SERVER_URL}private/all`,
+          { headers: { Authorization: localStorage.getItem("auth-Token") } }
+        );
+        setUsers(result.data);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      const filteredUsers = users.filter((u) =>
+        u.name.toLowerCase().includes(value)
+      );
+      setUsers(filteredUsers.filter((u) => userData.user?._id !== u._id));
+    }
+  };
+
+//-----//
+
 
   const linkGroups = [];
   const usersAlreadyWithGroup = [];
@@ -87,37 +183,3 @@ const NavBar = ({
 
 export default NavBar;
 
-// {groups.map((g) => (
-//   <li
-//     key={g._id}
-//     onClick={() => setCurrentChat(g)}
-//     className="navbar-group-link"
-//   >
-//     <GroupLink group={g} />
-//   </li>
-// ))}
-
-// {users.map((u) => (
-//   <li
-//     key={u._id}
-//     className="navbar-group-link"
-//   >
-//     <GroupLink user={u} />
-//   </li>
-// ))}
-
-// //get all users group
-// useEffect(() => {
-//   const getGroups = async () => {
-//     try {
-//       const result = await Axios.get(
-//         `http://localhost:5000/chat/api/groups/${userData.user._id}`
-//       );
-//       setGroup(result.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-//   getGroups();
-
-// }, [userData.user._id]);

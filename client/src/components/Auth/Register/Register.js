@@ -49,7 +49,7 @@ const Register = () => {
       });
       localStorage.setItem("auth-Token", loginUser.data.token);
 
-      socket.emit("addNewUser", loginUser.data.user._id);
+      socket.emit("addNewRegisterUser", loginUser.data.user._id);
 
       history.push("/chat");
     } catch (err) {

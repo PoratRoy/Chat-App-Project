@@ -1,8 +1,16 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import Message from "./Message/Message";
 import "./Messages.css";
 
-const Messages = ({ messages, user, scrollRef }) => {
+const Messages = ({ messages, user}) => {
+
+  const scrollRef = useRef();
+
+  //scroll down
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div className="chats">
         {messages.map((message, i) => (
