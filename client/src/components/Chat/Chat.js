@@ -33,7 +33,10 @@ const Chat = () => {
       localStorage.setItem("auth-Token", "");
       history.push("/");
     }
+  }, [history, setUserData, userData.user]);
 
+  useEffect(() => { 
+    console.log('enter');
     //init the new messaga
     socket.on("newArrivalMessageToClient", (data) => {
       setNewArrivalMessage({
@@ -42,7 +45,7 @@ const Chat = () => {
         createdAt: Date.now(),
       });
     });
-  }, [socket, history, setUserData, userData.user]);
+  }, [socket]);
 
   useEffect(() => {
     //get the user that send the new message
