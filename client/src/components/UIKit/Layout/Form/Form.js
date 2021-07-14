@@ -1,6 +1,7 @@
 import Btn from "../../Elements/Btn/Btn";
 import Row from "../Row/Row";
 import { Link } from "react-router-dom";
+import Error from '../../../Errors/ValidationError/ValidationError'
 import "./Form.css";
 
 const Form = ({handelSubmit,title,error,children,btn,link,linkTxt }) => {
@@ -10,7 +11,7 @@ const Form = ({handelSubmit,title,error,children,btn,link,linkTxt }) => {
         <Row justify="center">
           <h1 className="title">{title}</h1>
 
-          {error && <span className="error">{error}</span>}
+          {error && <Error error={error}/>}
 
           {children}
 
