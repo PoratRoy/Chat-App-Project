@@ -69,7 +69,7 @@ const Login = () => {
 
           <TxtBox
             placeholder="Enter Password.."
-            type="password"
+            type="text"
             value={password}
             setValue={setPassword}
           />

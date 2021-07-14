@@ -1,9 +1,9 @@
 import './Line.css';
 
-const Line = (props) => {
+const Line = ({justify, children}) => {
     return(
-        <div className="Line" justify={props.justify}>
-            {props.children}
+        <div className="line" justify={justify}>
+            {children}
         </div>
     );
 }

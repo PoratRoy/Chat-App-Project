@@ -15,7 +15,7 @@ const Form = ({handelSubmit,title,error,children,btn,link,linkTxt }) => {
 
           {children}
 
-          <Btn className={`form-btn ${btn}`}>{btn}</Btn>
+          <Btn style={`form-btn ${btn}`}>{btn}</Btn>
 
           <Link className="link" to={link}>
             {linkTxt}

@@ -1,13 +1,13 @@
 import "./Btn.css";
 
-const Btn = (props) => {
+const Btn = ({style,handleSubmit, children}) => {
   return (
     <button
-      className={`btn ${props.className}`}
+      className={`btn ${style}`}
       type="submit"
-      onSubmit={props.handleSubmit}
+      onSubmit={handleSubmit}
     >
-      {props.children}
+      {children}
     </button>
   );
 };

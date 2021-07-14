@@ -1,22 +1,22 @@
-.Line{
+.line{
     display: flex;
     align-items: center;
     height: 100%;
     width: 100%;
 }
 
-.Line[justify="center"]{
+.line[justify="center"]{
     justify-content: center;
 }
 
-.Line[justify="evenly"]{
+.line[justify="evenly"]{
     justify-content:space-evenly;
 }
 
-.Line[justify="between"]{
+.line[justify="between"]{
     justify-content:space-between;
 }
 
-.Line[justify="around"]{
+.line[justify="around"]{
     justify-content:space-around;
 }

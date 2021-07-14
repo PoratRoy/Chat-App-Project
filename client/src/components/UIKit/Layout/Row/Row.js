@@ -1,9 +1,9 @@
 import './Row.css';
 
-const Row = (props) => {
+const Row = ({justify, children}) => {
     return(
-        <div className="Row" justify={props.justify}>
-            {props.children}
+        <div className="row" justify={justify}>
+            {children}
         </div>
     );
 }
