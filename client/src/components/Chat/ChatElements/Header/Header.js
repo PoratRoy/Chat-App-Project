@@ -2,7 +2,10 @@ import React from "react";
 import {Line} from '../../../UIKit'
 import "./Header.css";
 
-const Header = ({ currentChat, setCurrentChat }) => {
+const Header = ({ currentChat, setCurrentChat, user }) => {
+    
+  const otherUser = currentChat?.members.filter(u => u.name !== user.name);
+
   const exsitGroup = () => {
     setCurrentChat(null);
   };
@@ -14,7 +17,7 @@ const Header = ({ currentChat, setCurrentChat }) => {
           {currentChat ? (
             <>
               <div className="header-title">
-                Chat with {currentChat?.members[1].name}
+                Chat with {otherUser[0].name}
               </div>
               <button className="header-exist" onClick={exsitGroup}>
                 X

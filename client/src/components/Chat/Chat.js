@@ -227,6 +227,7 @@ const Chat = () => {
               <Header
                 currentChat={currentChat}
                 setCurrentChat={setCurrentChat}
+                user={userData.user}
               />
             </header>
 

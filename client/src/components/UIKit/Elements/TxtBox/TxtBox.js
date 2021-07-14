@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./TxtBox.css";
 
 const TxtBox = ({ type, value, setValue, placeholder, children }) => {
