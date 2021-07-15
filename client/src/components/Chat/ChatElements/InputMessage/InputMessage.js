@@ -18,6 +18,7 @@ const InputMessage = ({ messages, setMessages }) => {
     event.preventDefault();
 
     if (!currentChat) return;
+    if(!message || message === "") return;
 
     const receiverId = currentChat.members.find(
       (member) => member._id !== userData.user._id

@@ -1,7 +1,7 @@
 import Btn from "../../Elements/Btn/Btn";
 import Row from "../Row/Row";
 import { Link } from "react-router-dom";
-import Error from '../../../Errors/ValidationError/ValidationError'
+import Error from '../../../Errors/TypesOfErrors/ValidationError/ValidationError'
 import "./Form.css";
 
 const Form = ({handelSubmit,title,error,children,btn,link,linkTxt }) => {

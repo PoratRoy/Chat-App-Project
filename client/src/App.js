@@ -8,6 +8,7 @@ import PrivateRoute from "components/routing/PrivateRouting";
 import Login from "components/Auth/Login/Login";
 import Register from "components/Auth/Register/Register";
 import Chat from "components/Chat/Chat";
+import PageNotFound from "components/Errors/TypesOfErrors/PageNotFound/PageNotFound";
 
 const App = () => {
   const [userData, setUserData] = useState({
@@ -52,6 +53,9 @@ useEffect(() => {
             <Route path="/" exact component={Login} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/chat" component={Chat} />
+            <Route path="*">
+                <PageNotFound state/>
+            </Route>
           </Switch>
         </SocketContext.Provider>
       </UserContext.Provider>

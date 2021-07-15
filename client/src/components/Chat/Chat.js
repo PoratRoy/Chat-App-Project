@@ -73,12 +73,13 @@ const Chat = () => {
           `${process.env.REACT_APP_SERVER_URL}messages/${currentChat?._id}`
         );
         setMessages(result.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error.response.status);
+        history.push('*');
       }
     };
     getMessages();
-  }, [currentChat]);
+  }, [currentChat, history]);
 
   //#endregion
 
