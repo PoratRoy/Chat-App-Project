@@ -35,12 +35,12 @@ const Chat = () => {
     }
   }, [history, setUserData, userData.user]);
 
-  useEffect(() => { 
-    console.log('enter');
+  useEffect(() => {
     //init the new messaga
     socket.on("newArrivalMessageToClient", (data) => {
       setNewArrivalMessage({
-        sender: data.senderId,
+        senderId: data.senderId,
+        receiverId: data.receiverId,
         text: data.text,
         createdAt: Date.now(),
       });
@@ -48,23 +48,21 @@ const Chat = () => {
   }, [socket]);
 
   useEffect(() => {
-    //get the user that send the new message
-    const getSender = async () => {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_SERVER_URL}private/${newArrivalMessage.sender}`,
-        { headers: { Authorization: localStorage.getItem("auth-Token") } }
-      );
-      return result.data;
-    };
-
     //add the new message to the array of all the messages
-    newArrivalMessage &&
-      getSender().then((res) => {
-        if (currentChat?.members.map((m) => m._id === res._id)) {
-          newArrivalMessage &&
-            setMessages((prev) => [...prev, newArrivalMessage]);
-        }
+    const membersId = currentChat?.members.map((m)=> m._id);
+    if (
+      newArrivalMessage &&
+      membersId?.includes(newArrivalMessage.senderId) 
+    ) {
+      const receiverMembers = currentChat?.members.filter((m) => {
+        return m._id !== newArrivalMessage.senderId;
       });
+      if (receiverMembers?.map((m) => m._id === newArrivalMessage.receiverId)) {
+        newArrivalMessage &&
+          setMessages((prev) => [...prev, newArrivalMessage]);
+        setNewArrivalMessage(null);
+      }
+    }
   }, [newArrivalMessage, currentChat]);
 
   useEffect(() => {

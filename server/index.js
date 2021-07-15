@@ -44,10 +44,12 @@ io.on('connect', (socket)=>{
 
     //send and get message
     socket.on('newArrivalMessageToServer',({senderId, receiver,text}) =>{
-        const receivedUser = getUser(receiver._id);
+        const receiverId = receiver._id;
+        const receivedUser = getUser(receiverId);
         if(receivedUser){
             io.to(receivedUser.socketId).emit('newArrivalMessageToClient',{
                 senderId,
+                receiverId,
                 text
             })
         }
