@@ -91,7 +91,8 @@ body{
 }
 
 .txt:focus{
-    border:none;
+    outline: none;
+    border:3px solid rgb(118, 118, 128);
 }
 
 
