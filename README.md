@@ -26,6 +26,7 @@ You can find detailed guides on how to do so [here](https://docs.mongodb.com/man
 4. On the server directory, create new file with the name ```.env``` and add the following variables:
 - ```MONGODB_CONNECTION_STRING=mongodb://localhost/<Your-DB-Collection-Name>```
 - ```CHAT_JWT_KEY=<Your-JWT-Password>```
+<br/>Replace - ```<Your-DB-Collection-Name>``` and ```<Your-JWT-Password>``` with your new DB name and password.
 5. Finally, all you have to do is type ```node index.js``` on the server terminal and ```npm start``` on the client terminal. 
 6. The frontend of the application will be automatically opened in your web browser and you can test it away.
 ___
