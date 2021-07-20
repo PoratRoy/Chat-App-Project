@@ -33,5 +33,6 @@ ___
 
 ### Screenshots
 ![login_screen](https://user-images.githubusercontent.com/82472117/125211065-57c96200-e2ac-11eb-941e-e86a693e8f95.PNG)
-![chat_screen](https://user-images.githubusercontent.com/82472117/125211076-66177e00-e2ac-11eb-9f0e-b28dc69b25d1.PNG)
+![chatScreenNoChat](https://user-images.githubusercontent.com/82472117/126360463-9b96450d-4f13-4902-94d8-5856e6a9bcfb.PNG)
+![chatPage](https://user-images.githubusercontent.com/82472117/126360481-53687879-569e-4067-baab-5695cab4659c.PNG)
 
