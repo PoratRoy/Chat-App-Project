@@ -4,8 +4,8 @@
 
 .form-btn.Login, .form-btn.Register{
     color: var(--primary-text-color);
-    height: 3em;
-    width:6em;
+    height: 7vh;
+    width:35%;
 }
 
 .form-btn.Login{

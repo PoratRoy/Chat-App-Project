@@ -10,6 +10,8 @@
     font-size:var(--text-font-size-l);
     font-weight: 700;
     padding-bottom: 10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .group-link-btn:hover{
     cursor: pointer;

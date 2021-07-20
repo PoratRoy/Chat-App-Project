@@ -62,6 +62,7 @@ const InputMessage = ({ messages, setMessages }) => {
             onKeyPress={(e) =>
               e.key === "Enter" ? sendMessage(e) : null
             }
+            maxLength="1000"
           />
           <button className="input-btn" onClick={(e) => sendMessage(e)}>
             <i class="input-btn-icon fas fa-arrow-alt-circle-right"></i>

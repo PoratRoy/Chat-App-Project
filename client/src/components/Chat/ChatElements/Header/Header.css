@@ -9,10 +9,19 @@
 
 
 .header-title{
-    font-size: var(--text-font-size-xxl);
     letter-spacing:2px;
     font-weight: bold;
     color: var(--primary-text-color);
+}
+
+.header-title[lenght="s"]{
+    font-size: var(--text-font-size-xxl);
+}
+.header-title[lenght="m"]{
+    font-size: var(--text-font-size-xl);
+}
+.header-title[lenght="l"]{
+    font-size: var(--text-font-size-l);
 }
 
 

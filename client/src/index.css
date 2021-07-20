@@ -33,13 +33,12 @@
     --primary-box-shadow:3px 3px 3px 0 rgba(0,0,0,.1);
     --second-box-shadow:10px 10px 10px 0 rgba(0,0,0,.1);
 
-    --text-font-size-xxl:45px;
-    --text-font-size-xl:35px;
-    --text-font-size-l:25px;
-    --text-font-size-m:18px;
-    --text-font-size-s:15px;
-    --text-font-size-xs:10px;
-
+    --text-font-size-xxl:2.5rem;
+    --text-font-size-xl:2rem;
+    --text-font-size-l:1.4rem;
+    --text-font-size-m:1rem;
+    --text-font-size-s:0.8rem;
+    --text-font-size-xs:0.5rem;
 }
 
 body{
@@ -50,6 +49,7 @@ body{
     background-color: var(--primary-backgrond-color);
     cursor: default;
     font-family:'Rubik', sans-serif;
+    font-size: 16px;
 }
 
 .title{
@@ -97,11 +97,3 @@ body{
 
 
 
-@keyframes fadeout{
-    from{
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
-}

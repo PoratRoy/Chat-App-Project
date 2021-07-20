@@ -35,8 +35,8 @@
 
 .input-btn-icon{
     position: relative;
-    height: 6vh;
-    width: 3vw;
+    height: 39px;
+    width: 40px;
     font-size: var(--text-font-size-xxl);
     color: var(--other-background-color);
     background-color: var(--second-text-color);

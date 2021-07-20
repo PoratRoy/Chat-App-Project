@@ -9,4 +9,14 @@
     border-radius: 10px;
     box-shadow: var(--primary-box-shadow);
     animation: fadeout 3s 5s;
+    font-size: var(--text-font-size-s);
+}
+
+@keyframes fadeout{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
 }
