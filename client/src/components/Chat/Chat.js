@@ -10,6 +10,7 @@ import CurrentChatContext from "../../context/CurrentChatContext";
 import HasErrorContext from "../../context/HasErrorContext";
 import { SocketContext } from "../../context/SocketContext";
 import ErrorPage from "../Errors/ErrorPage/ErrorPage";
+import LogoImg from '../../assets/images/logo.png';
 import "./Chat.css";
 
 const Chat = () => {
@@ -110,6 +111,7 @@ const Chat = () => {
                 </>
               ) : (
                 <section className="chat-group">
+                  <img className="logo-img" src={LogoImg} alt="logo"/>
                   <div className="no-chat">No chat selected</div>
                 </section>
               )}

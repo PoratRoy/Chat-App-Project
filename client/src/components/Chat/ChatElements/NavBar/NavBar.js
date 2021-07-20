@@ -7,6 +7,7 @@ import CurrentChatContext from "../../../../context/CurrentChatContext";
 import { SocketContext } from "../../../../context/SocketContext";
 import LogoutBtn from './LogoutBtn/LogoutBtn';
 import { Row, Search } from "../../../UIKit";
+import LogoImg from '../../../../assets/images/logo.png'
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -150,7 +151,7 @@ const NavBar = () => {
       <div className="navbar-continer">
         <Row>
           <header className="navbar-header">
-            <div className="title">CHATROOM</div>
+            <div className="title">ChitChat <span><img className="logo" src={LogoImg} alt="title logo"/></span></div>
             <div className="navbar-title-s">Created by Roy Porat</div>
           </header>
 

@@ -28,10 +28,19 @@
     width: 80%;
 }
 
+.logo-img{
+    position: absolute;
+    height: 70vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.1;
+}
+
 .no-chat{
     position: relative;
     text-align: center;
-    top: 25vh;
+    top: 35vh;
     color: var(--second-text-color);
     font-size: var(--text-font-size-xxl);
     opacity: 0.4;

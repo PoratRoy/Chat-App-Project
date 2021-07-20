@@ -9,11 +9,19 @@
 .navbar-header{
     position: relative;
     text-align: center;
-    padding: 8%;
+    padding: 8% 0 8% 8%;
     border-bottom: 3px solid rgba(53, 53, 58, 0.1);
     color: var(--second-text-color);
     display: flex;
     flex-direction: column;
+}
+
+.logo{
+    position: relative;
+    top: 10px;
+    left: -5px;
+    height: 7vh;
+    opacity: 0.6;
 }
 
 
