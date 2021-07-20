@@ -10,12 +10,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a name"],
       minlength: 2,
-      maxlength: 50,
+      maxlength: 40,
     },
     userName: {
       type: String,
       minlength: 2,
-      maxlength: 50,
+      maxlength: 40,
       required: [true, "Please provide a user name"],
       index: { unique: true, sparse: true },
     },
@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//hash password middleware
 userSchema.pre("save", async function (next) { 
   if (!this.isModified("password")) {
     next();
@@ -38,6 +39,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+//compare login password with hash one
 userSchema.methods.matchesPassword = async function (password) { 
   return await bcrypt.compare(password, this.password);
 };
@@ -57,8 +59,8 @@ const User = mongoose.model("User", userSchema);
 
 const userValidate = (input) => {
   const schema = {
-    name: Joi.string().min(2).max(50).required(),
-    userName: Joi.string().min(2).max(50).required(),
+    name: Joi.string().min(2).max(40).required(),
+    userName: Joi.string().min(2).max(40).required(),
     password: Joi.string().min(1).max(255).required(),
   };
   return Joi.validate(input, schema);
@@ -66,7 +68,7 @@ const userValidate = (input) => {
 
 const loginValidate = (input) => {
   const schema = {
-      userName: Joi.string().min(2).max(50).required(),
+      userName: Joi.string().min(2).max(40).required(),
       password: Joi.string().min(1).max(255).required(),
   }
   return Joi.validate(input, schema);

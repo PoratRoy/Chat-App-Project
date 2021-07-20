@@ -11,28 +11,28 @@ import Chat from "components/Chat/Chat";
 import PageNotFound from "components/Errors/TypesOfErrors/PageNotFound/PageNotFound";
 
 const App = () => {
-  
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
   });
 
-useEffect(() => {
-
+  useEffect(() => {
+    //find if there is a token
     let token = localStorage.getItem("auth-Token");
     if (!token) {
       localStorage.setItem("auth-Token", "");
       token = "";
     }
 
+    //check if the token is valid and set the user data with the token
     const fetchPrivateData = async () => {
       try {
         const resToken = await Axios.post(
           `${process.env.REACT_APP_SERVER_URL}auth/tokenIsValid`,
           null,
-          { headers: {"x-auth-Token": token} }
-          );
-          
+          { headers: { "x-auth-Token": token } }
+        );
+
         if (resToken.data) {
           setUserData({
             token,
@@ -55,7 +55,7 @@ useEffect(() => {
             <Route path="/register" component={Register} />
             <PrivateRoute path="/chat" component={Chat} />
             <Route path="*">
-                <PageNotFound/>
+              <PageNotFound />
             </Route>
           </Switch>
         </SocketContext.Provider>
@@ -65,4 +65,3 @@ useEffect(() => {
 };
 
 export default App;
-

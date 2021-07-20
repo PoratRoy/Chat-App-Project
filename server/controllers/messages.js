@@ -1,7 +1,7 @@
 const { Message } = require("../models/Message");
 const ErrorResponse = require("../utils/errorResponse");
 
-exports.addmessage = async (req, res, next) => {
+exports.addMessage = async (req, res, next) => {
   try {
     const newMessage = new Message(req.body);
     const savedMessage = await newMessage.save();

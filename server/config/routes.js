@@ -5,7 +5,6 @@ const URL = '/chat/api';
 
 const routes = async(app) => {
     
-    app.use(`${URL}/`, require('../routes/home')); 
     app.use(`${URL}/auth`, require('../routes/auth')); 
     app.use(`${URL}/private`, require('../routes/private')); 
     app.use(`${URL}/groups`, require('../routes/groups'));

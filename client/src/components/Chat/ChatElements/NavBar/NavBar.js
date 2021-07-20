@@ -19,9 +19,12 @@ const NavBar = () => {
   const { setHasError } = useContext(HasErrorContext);
   const { socket } = useContext(SocketContext);
 
-  
+  //#region useEffects
+
+  //controlle the users list 
   useEffect(() => {
     const getAllUsers = async () => {
+      //get all the users
       try {
         const result = await Axios.get(
           `${process.env.REACT_APP_SERVER_URL}private/all`,
@@ -35,6 +38,7 @@ const NavBar = () => {
     getAllUsers();
 
     const getAllUserGroups = async () => {
+      //get all groups
       try {
         const result = await Axios.get(
           `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
@@ -51,10 +55,12 @@ const NavBar = () => {
       getAllUserGroups();
     });
 
+    //receive the new register user id 
     socket.on("getNewRegisterUser", (userId) => {
       userId && addNewUser(userId);
     });
 
+    //add the new user to the users array so he will show up on the list
     const addNewUser = async (userId) => {
       try{
         const result = await Axios.get(
@@ -67,8 +73,9 @@ const NavBar = () => {
       }
     };
   }, [userData.user, socket]);
+//#endregion
 
-
+  //create new group with the selected user 
   const addNewGroup = async (id) => {
     const newGroup = {
       senderId: userData.user._id,
@@ -94,15 +101,11 @@ const NavBar = () => {
   };
 
 
-
-
-//-----//
-
-
   const linkGroups = [];
   const usersAlreadyWithGroup = [];
 
-  //loop on the users and groups and if match push the elemnt to the link groups array
+  //loop on all the users and the groups 
+  //and add the users how already has a chat with the current user to the list with addition of continue chat..
   users.forEach((u) => {
     groups.forEach((g) => {
       if (userData.user._id !== u._id) {
@@ -123,6 +126,7 @@ const NavBar = () => {
     });
   });
 
+  //find all the users how dont have groups and add them to the list
   const usersWithoutGroup = users.filter(
     (u) =>
       userData.user?._id !== u._id && !usersAlreadyWithGroup.includes(u._id)

@@ -25,6 +25,7 @@ const Login = () => {
     };
 
     try {
+      //try to login the user and if succesed insert his data and token to the user data context
       const loginUser = await Axios.post(
         `${process.env.REACT_APP_SERVER_URL}auth/login`,
         { userName, password },
@@ -37,6 +38,7 @@ const Login = () => {
       });
       localStorage.setItem("auth-Token", loginUser.data.token);
 
+      //add the new login user to the socket users array
       socket.emit("addUserToArray", loginUser.data.user._id);
 
       history.push("/chat");
@@ -69,7 +71,7 @@ const Login = () => {
 
           <TxtBox
             placeholder="Enter Password.."
-            type="text"
+            type="password"
             value={password}
             setValue={setPassword}
           />

@@ -19,7 +19,7 @@ require('./config/prod')(app);
 
 //handeling errors
 process.on('unhandledRejection', (err, promise) => {
-    console.log(err); //err.message
+    console.log(err.message);
     server.close(()=> {process.exit(1)});
 })
 
@@ -68,46 +68,5 @@ io.on('connect', (socket)=>{
         removeUser(socket.id);
         console.log('user has left');
     })
-
- 
-
-    
-    // socket.on('join', async ({userName, group})=>{
-    //     console.log(`user ${userName} connect to group ${group}`);
-        
-    //     try{
-    //         const user = addUser({id: socket.id, userName, group});
-
-    //         socket.emit('alert', {user: 'admin', text: `${user.name}, welcome to group ${group}`});
-    //         socket.broadcast.to(user.group).emit('alert', {user: 'admin', text: `${user.name}, enter the group`});
-            
-    //         socket.join(user.group);
-    //     }
-    //     catch (err){
-    //         console.log('error in join user to group');
-    //     }
-    // });
-
-    // socket.on('sendMessage',async (props)=> { 
-
-    //     try{
-    //         const user = getUser(socket.id);
-
-    //         io.to(props.group).emit('message', {user:user.name, text: props.message}); 
-    //     }
-    //     catch (err){
-    //         console.log('error in send message');
-    //     }
-    // })
-
-    // socket.on('disconnect',()=>{
-    //     const users = removeUser(socket.id);
-    //     //io.to(user.group).emit('alert', {user: 'admin', text: `${user.name}, has left the group`});
-    //     //console.log(`${user.name}, has left group ${user.group}`);
-    
-    // })
-
-
-
 });
 

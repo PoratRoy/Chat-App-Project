@@ -2,7 +2,7 @@ const { User } = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
 
 
-exports.currentUser = async (req, res, next) => { //no use
+exports.currentUser = async (req, res, next) => { 
   try {
     const token = req.header("x-auth-Token"); 
     console.log('user - ',token);
@@ -22,6 +22,7 @@ exports.currentUser = async (req, res, next) => { //no use
   }
 };
 
+//get all the users (login and not login)
 exports.allUsers = async (req, res, next) => {
   try {
     const users = await User.find().select("_id name");
@@ -36,6 +37,7 @@ exports.allUsers = async (req, res, next) => {
   }
 };
 
+//get spacific user by id 
 exports.userById = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id).select("_id name");

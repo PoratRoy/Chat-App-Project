@@ -9,7 +9,7 @@ const Search = ({users, setUsers}) => {
   const { setHasError } = useContext(HasErrorContext);
   const { userData } = useContext(UserContext);
 
-
+  //get all the users names and filter them to get the spacifics names
   const handleSearch = async (e) => {
     const value = e.target.value.toLocaleLowerCase();
     if (!value || value === "") {

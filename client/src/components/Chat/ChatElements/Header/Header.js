@@ -16,6 +16,7 @@ const Header = () => {
     setCurrentChat(null);
   };
 
+  //size of the title by the length of the name
   const len = otherUser[0].name.length;
   let length = "";
   if (len <= 5) {

@@ -3,6 +3,7 @@ require('dotenv').config();
 const {User} = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
 
+//verify if the user token valid
 exports.protect = async (req, res, next)=> {
     let token;
     token = req.headers.authorization;
@@ -24,7 +25,6 @@ exports.protect = async (req, res, next)=> {
         next();
     }
     catch (ex){
-        console.log('error');
         return next(new ErrorResponse('Not authorized to acces this route', 401));
     }
 }

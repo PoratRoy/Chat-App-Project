@@ -27,6 +27,7 @@ const Register = () => {
     };
 
     try {
+      //try to register. if succesed login with the same new user
       const newUser = { name, userName, password };
       await Axios.post(
         `${process.env.REACT_APP_SERVER_URL}auth/register`,
@@ -49,6 +50,7 @@ const Register = () => {
       });
       localStorage.setItem("auth-Token", loginUser.data.token);
 
+      //alert to everyone someone new register
       socket.emit("addNewRegisterUser", loginUser.data.user._id);
 
       history.push("/chat");

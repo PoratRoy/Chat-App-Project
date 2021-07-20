@@ -16,6 +16,8 @@ const InputMessage = ({ messages, setMessages }) => {
   const { socket } = useContext(SocketContext);
   const { setHasError } = useContext(HasErrorContext);
 
+  //add the new message to the array of messages. 
+  //alert with sockt object of the sender the receiver and the new message
   const sendMessage = async (event) => {
     event.preventDefault();
 
