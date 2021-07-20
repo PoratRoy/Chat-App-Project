@@ -4,6 +4,7 @@ import UserContext from "../../../../context/UserContext";
 import CurrentChatContext from "../../../../context/CurrentChatContext";
 import { SocketContext } from "../../../../context/SocketContext";
 import { Line } from "../../../UIKit";
+import HasErrorContext from "../../../../context/HasErrorContext";
 import "./InputMessage.css";
  
 const InputMessage = ({ messages, setMessages }) => {
@@ -13,6 +14,7 @@ const InputMessage = ({ messages, setMessages }) => {
   const { currentChat } = useContext(CurrentChatContext);
   const { userData } = useContext(UserContext);
   const { socket } = useContext(SocketContext);
+  const { setHasError } = useContext(HasErrorContext);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -42,8 +44,8 @@ const InputMessage = ({ messages, setMessages }) => {
       );
       setMessages([...messages, result.data]);
       setMessage("");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setHasError(error);
     }
   };
 

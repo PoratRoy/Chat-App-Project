@@ -7,7 +7,9 @@ import Messages from "./ChatElements/Messages/Messages";
 import InputMessage from "./ChatElements/InputMessage/InputMessage";
 import UserContext from "../../context/UserContext";
 import CurrentChatContext from "../../context/CurrentChatContext";
+import HasErrorContext from "../../context/HasErrorContext";
 import { SocketContext } from "../../context/SocketContext";
+import ErrorPage from "../Errors/ErrorPage/ErrorPage";
 import "./Chat.css";
 
 const Chat = () => {
@@ -15,6 +17,7 @@ const Chat = () => {
   const [newArrivalMessage, setNewArrivalMessage] = useState(null);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState(null);
+  const [hasError, setHasError] = useState(null);
 
   const { userData, setUserData } = useContext(UserContext);
   const { socket } = useContext(SocketContext);
@@ -22,7 +25,6 @@ const Chat = () => {
   //#endregion
 
   //#region useEffects
-
   useEffect(() => {
     //push to login if the user has no token
     if (!userData.user) {
@@ -49,11 +51,8 @@ const Chat = () => {
 
   useEffect(() => {
     //add the new message to the array of all the messages
-    const membersId = currentChat?.members.map((m)=> m._id);
-    if (
-      newArrivalMessage &&
-      membersId?.includes(newArrivalMessage.senderId) 
-    ) {
+    const membersId = currentChat?.members.map((m) => m._id);
+    if (newArrivalMessage && membersId?.includes(newArrivalMessage.senderId)) {
       const receiverMembers = currentChat?.members.filter((m) => {
         return m._id !== newArrivalMessage.senderId;
       });
@@ -74,8 +73,7 @@ const Chat = () => {
         );
         setMessages(result.data);
       } catch (error) {
-        console.log(error.response.status);
-        history.push('*');
+        setHasError(error);
       }
     };
     getMessages();
@@ -85,31 +83,40 @@ const Chat = () => {
 
   return (
     <>
-      <CurrentChatContext.Provider value={{ currentChat, setCurrentChat }}>
-        <div className="chat-continer">
-          <nav className="chat-nav">
-            <NavBar />
-          </nav>
+      {hasError ? (
+        <ErrorPage error={hasError} />
+      ) : (
+        <CurrentChatContext.Provider value={{ currentChat, setCurrentChat }}>
+          <HasErrorContext.Provider value={{ setHasError }}>
+            <div className="chat-continer">
+              <nav className="chat-nav">
+                <NavBar />
+              </nav>
 
-          {currentChat ? (
-            <>
-              <header className="chat-header">
-                <Header />
-              </header>
+              {currentChat ? (
+                <>
+                  <header className="chat-header">
+                    <Header />
+                  </header>
 
-              <section className="chat-group">
-                <Messages messages={messages} user={userData.user} />
+                  <section className="chat-group">
+                    <Messages messages={messages} user={userData.user} />
 
-                <InputMessage messages={messages} setMessages={setMessages} />
-              </section>
-            </>
-          ) : (
-            <section className="chat-group">
-              <div className="no-chat">No chat selected</div>
-            </section>
-          )}
-        </div>
-      </CurrentChatContext.Provider>
+                    <InputMessage
+                      messages={messages}
+                      setMessages={setMessages}
+                    />
+                  </section>
+                </>
+              ) : (
+                <section className="chat-group">
+                  <div className="no-chat">No chat selected</div>
+                </section>
+              )}
+            </div>
+          </HasErrorContext.Provider>
+        </CurrentChatContext.Provider>
+      )}
     </>
   );
 };

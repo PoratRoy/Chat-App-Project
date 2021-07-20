@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 import GroupLink from "./GroupLink/GroupLink";
 import UserContext from "../../../../context/UserContext";
+import HasErrorContext from "../../../../context/HasErrorContext";
 import CurrentChatContext from "../../../../context/CurrentChatContext";
 import { SocketContext } from "../../../../context/SocketContext";
 import LogoutBtn from './LogoutBtn/LogoutBtn';
@@ -15,6 +16,7 @@ const NavBar = () => {
 
   const { setCurrentChat } = useContext(CurrentChatContext);
   const { userData, setUserData } = useContext(UserContext);
+  const { setHasError } = useContext(HasErrorContext);
   const { socket } = useContext(SocketContext);
 
   
@@ -26,8 +28,8 @@ const NavBar = () => {
           { headers: { Authorization: localStorage.getItem("auth-Token") } }
         );
         setUsers(result.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        setHasError(error);
       }
     };
     getAllUsers();
@@ -38,8 +40,8 @@ const NavBar = () => {
           `${process.env.REACT_APP_SERVER_URL}groups/${userData.user._id}`
         );
         setGroups(result.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        setHasError(error);
       }
     };
     getAllUserGroups();
@@ -54,11 +56,15 @@ const NavBar = () => {
     });
 
     const addNewUser = async (userId) => {
-      const result = await Axios.get(
-        `${process.env.REACT_APP_SERVER_URL}private/${userId}`,
-        { headers: { Authorization: localStorage.getItem("auth-Token") } }
-      );
-      setUsers((prev) => [...prev, result.data]);
+      try{
+        const result = await Axios.get(
+          `${process.env.REACT_APP_SERVER_URL}private/${userId}`,
+          { headers: { Authorization: localStorage.getItem("auth-Token") } }
+        );
+        setUsers((prev) => [...prev, result.data]);
+      } catch(error){
+        setHasError(error);
+      }
     };
   }, [userData.user, socket]);
 
@@ -82,8 +88,8 @@ const NavBar = () => {
       );
       setGroups(res.data);
       socket.emit("addNewGroup", id);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setHasError(error);
     }
   };
 

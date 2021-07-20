@@ -1,25 +1,24 @@
-
-.error-500-continer{
+.error-continer{
     position:relative;
     top: 20vh;
     text-align: center;
     color: var(--second-text-color);
 }
 
-.error-500{
+.error-number{
     font-size: 6rem;
 }
 
-.error-500-title{
+.error-title{
     font-size: 1.8rem;
     margin-top: -10vh;
 }
 
-.error-500-info{
+.error-info{
     font-size: 0.7rem;
     margin-top: -3vh;
 }
 
-.error-500-link{
+.error-link{
     font-size: 0.7rem;
 }

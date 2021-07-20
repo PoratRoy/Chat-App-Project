@@ -11,6 +11,7 @@ import Chat from "components/Chat/Chat";
 import PageNotFound from "components/Errors/TypesOfErrors/PageNotFound/PageNotFound";
 
 const App = () => {
+  
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -54,7 +55,7 @@ useEffect(() => {
             <Route path="/register" component={Register} />
             <PrivateRoute path="/chat" component={Chat} />
             <Route path="*">
-                <PageNotFound state/>
+                <PageNotFound/>
             </Route>
           </Switch>
         </SocketContext.Provider>

@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import UserContext from "../../../../context/UserContext";
+import HasErrorContext from "../../../../context/HasErrorContext";
 import Axios from "axios";
 import "./Search.css";
 
 const Search = ({users, setUsers}) => {
 
+  const { setHasError } = useContext(HasErrorContext);
   const { userData } = useContext(UserContext);
+
 
   const handleSearch = async (e) => {
     const value = e.target.value.toLocaleLowerCase();
@@ -16,8 +19,8 @@ const Search = ({users, setUsers}) => {
           { headers: { Authorization: localStorage.getItem("auth-Token") } }
         );
         setUsers(result.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        setHasError(error);
       }
     } else {
       const filteredUsers = users.filter((u) =>

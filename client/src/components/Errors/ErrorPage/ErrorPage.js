@@ -1,17 +1,24 @@
 import NotAuthorized from '../TypesOfErrors/NotAuthorized/NotAuthorized';
 import PageNotFound from '../TypesOfErrors/PageNotFound/PageNotFound';
 import ServerError from '../TypesOfErrors/ServerError/ServerError';
+import DefaultError from '../TypesOfErrors/DefaultError/DefaultError';
 
-const ErrorPage = ({statusCode}) => {
+const ErrorPage = ({error}) => {
     
+    const statusCode =  error.response.status;
     if(statusCode === 401 || statusCode === 403){
-        return (<NotAuthorized/>)
+        return (<NotAuthorized statusCode={statusCode}/>)
     }
     else if(statusCode < 500){
-        return (<PageNotFound/>)
+        if(statusCode === 404){
+            return (<PageNotFound/>)
+        }
+        else{
+            return(<DefaultError statusCode={statusCode} msg={error.response.statusText}/>)
+        }
     }
     else{
-        return (<ServerError/>)
+        return (<ServerError statusCode={statusCode}/>)
     }
 }
 
