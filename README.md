@@ -2,8 +2,8 @@
 
 ### Introduction
 This is a full-stack chat web application that can be up and running with just a few steps. 
-Its frontend is built with React. 
-The backend is built with Express.js and Node.js. Real-time message broadcasting is developed using Socket.IO.
+Frontend is built with React. 
+Backend is built with Express.js and Node.js. Real-time message broadcasting is developed using Socket.IO.
 ___
 
 ### Features
@@ -15,7 +15,7 @@ This application provides users with the following features:
 ___
 
 ### How to use
-You can have this application up and running with just a few steps. Follow the steps below to do so.
+Follow the steps below to have this application up and running 
 
 1. Clone this repo
 2. Once you have the repo, you need to install its dependencies. 
