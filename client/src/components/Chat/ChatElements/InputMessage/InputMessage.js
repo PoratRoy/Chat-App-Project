@@ -69,7 +69,7 @@ const InputMessage = ({ messages, setMessages }) => {
             maxLength="1000"
           />
           <button className="input-btn" onClick={(e) => sendMessage(e)}>
-            <i class="input-btn-icon fas fa-arrow-alt-circle-right"></i>
+            <i className="input-btn-icon fas fa-arrow-alt-circle-right"></i>
           </button>
         </Line>
       </form>
